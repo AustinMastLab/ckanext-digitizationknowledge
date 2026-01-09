@@ -46,6 +46,15 @@
       ],
       "validators": "boolean_validator",
       "output_validators": "boolean_validator"
+    },
+    {
+      "field_name": "is_private",
+      "label": "Private",
+      "validators": "boolean_validator ignore_missing",
+      "form_snippet": "checkbox.html",
+      "output_validators": "boolean_validator",
+      "help_text": "If checked, this group will only be visible to its members."
+
     }
   ]
 }
