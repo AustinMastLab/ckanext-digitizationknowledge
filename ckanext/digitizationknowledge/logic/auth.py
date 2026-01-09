@@ -24,7 +24,7 @@ def group_show(context: Context, data_dict: DataDict) -> AuthResult:
     group = logic_auth.get_group_object(context, data_dict)
     
     # Check if 'is_private' is set in extras
-    is_private = group.extras.get('is_private', False)
+    is_private = group.extras.get('is_private', False) if group.extras else False
     
     # Convert 'true'/'True' strings to bool if necessary (ckan sometimes stores extras as strings)
     if isinstance(is_private, str):
