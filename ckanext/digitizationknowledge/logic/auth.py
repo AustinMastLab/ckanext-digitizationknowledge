@@ -11,6 +11,7 @@ def digitizationknowledge_get_sum(context, data_dict):
     return {"success": True}
 
 
+@tk.auth_allow_anonymous_access
 def group_show(context: Context, data_dict: DataDict) -> AuthResult:
     '''
    Custom group_show that enforces membership for private groups.
