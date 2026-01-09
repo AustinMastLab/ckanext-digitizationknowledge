@@ -22,12 +22,6 @@ def group_show(context: Context, data_dict: DataDict) -> AuthResult:
     user = context.get('user')
     group = logic_auth.get_group_object(context, data_dict)
     
-    # We need the group object to check 'private'
-    group = model.Group.get(group_id)
-    if not group:
-         # Delegate to core if not found, it will handle it (404)
-         return {'success': True} 
-         
     # Check if 'is_private' is set in extras
     is_private = group.extras.get('is_private', False)
     
