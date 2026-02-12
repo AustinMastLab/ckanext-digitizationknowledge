@@ -1,15 +1,82 @@
 import ckan.plugins.toolkit as toolkit
 import ckan.model as model
+import ckan.authz as authz
+from sqlalchemy import and_, not_, exists
 from typing import Any
 
-# Define Template helper functions
+
+def is_group_private(group):
+    """
+    Template helper to check if a group is private.
+    
+    Args:
+        group: A group dict or group object
+        
+    Returns:
+        bool: True if group is marked as private
+    """
+    # Handle dict format (from group_show)
+    if isinstance(group, dict):
+        # Check direct field (may be present in some cases)
+        if 'is_private' in group:
+            val = group['is_private']
+            if isinstance(val, str):
+                return val.lower() in ['true', '1', 'yes', 'on']
+            return bool(val)
+        
+        # Check extras list format
+        extras = group.get('extras', [])
+        for extra in extras:
+            if extra.get('key') == 'is_private':
+                val = extra.get('value')
+                if isinstance(val, str):
+                    return val.lower() in ['true', '1', 'yes', 'on']
+                return bool(val)
+    
+    # Handle model object format
+    elif hasattr(group, 'extras') and 'is_private' in group.extras:
+        val = group.extras['is_private']
+        if isinstance(val, str):
+            return val.lower() in ['true', '1', 'yes', 'on']
+        return bool(val)
+    
+    return False
+
+
+def user_can_view_group(group_name_or_id):
+    """
+    Template helper to check if current user can view a group.
+    
+    Args:
+        group_name_or_id: Group name or ID
+        
+    Returns:
+        bool: True if user can view the group
+    """
+    try:
+        user = toolkit.current_user.name if toolkit.current_user.is_authenticated else None
+        context = {'user': user}
+        toolkit.check_access('group_show', context, {'id': group_name_or_id})
+        return True
+    except toolkit.NotAuthorized:
+        return False
+
+
 def get_custom_featured_groups(count: int = 1):
     '''
     Returns a list of featured groups using the is_featured field.
+    Excludes private groups from featured listings.
     Efficiently queries database first to find featured groups, then gets full details.
     '''
     try:
+        # Subquery to find private groups
+        private_groups_subquery = model.Session.query(model.GroupExtra.group_id).filter(
+            model.GroupExtra.key == 'is_private',
+            model.GroupExtra.value.in_(['True', 'true', '1', 'yes'])
+        ).subquery()
+        
         # Query database directly for featured group names (fast!)
+        # Exclude private groups from featured results
         query = model.Session.query(model.Group.name).join(
             model.GroupExtra,
             model.Group.id == model.GroupExtra.group_id
@@ -17,7 +84,9 @@ def get_custom_featured_groups(count: int = 1):
             model.Group.is_organization == False,
             model.Group.state == 'active',
             model.GroupExtra.key == 'is_featured',
-            model.GroupExtra.value.in_(['True', 'true', '1', 'yes'])
+            model.GroupExtra.value.in_(['True', 'true', '1', 'yes']),
+            # Exclude private groups
+            ~model.Group.id.in_(private_groups_subquery)
         ).distinct().limit(count)
         
         featured_names = [name for name, in query.all()]
@@ -43,6 +112,7 @@ def get_custom_featured_groups(count: int = 1):
         return groups_data
     except Exception:
         return []
+
 
 def get_custom_featured_organizations(count: int = 1):
     '''
@@ -85,10 +155,11 @@ def get_custom_featured_organizations(count: int = 1):
     except Exception:
         return []
 
+
 def get_helpers():
     return {
         "get_custom_featured_groups": get_custom_featured_groups,
         "get_custom_featured_organizations": get_custom_featured_organizations,
+        "is_group_private": is_group_private,
+        "user_can_view_group": user_can_view_group,
     }
-    
-    # nameCallableFromTemplate:nameOfFunction
