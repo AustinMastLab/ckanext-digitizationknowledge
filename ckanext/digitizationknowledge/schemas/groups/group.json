@@ -7,7 +7,9 @@
       "label": "Name",
       "validators": "ignore_missing unicode_safe",
       "form_snippet": "large_text.html",
-      "form_attrs": {"data-module": "slug-preview-target"},
+      "form_attrs": {
+        "data-module": "slug-preview-target"
+      },
       "form_placeholder": "My Organization"
     },
     {
@@ -50,11 +52,21 @@
     {
       "field_name": "is_private",
       "label": "Private",
-      "validators": "boolean_validator ignore_missing",
-      "form_snippet": "checkbox.html",
+      "form_placeholder": "Should it be private?",
+      "preset": "radio",
+      "choices": [
+        {
+          "value": true,
+          "label": "Yes"
+        },
+        {
+          "value": false,
+          "label": "No"
+        }
+      ],
+      "validators": "boolean_validator",
       "output_validators": "boolean_validator",
       "help_text": "If checked, this group will only be visible to its members."
-
     }
   ]
 }

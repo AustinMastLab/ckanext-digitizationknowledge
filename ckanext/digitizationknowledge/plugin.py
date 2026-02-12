@@ -9,8 +9,7 @@ import os
 import ckanext.digitizationknowledge.helpers as helpers
 import ckanext.digitizationknowledge.views as views
 from ckanext.digitizationknowledge.logic import (
-    validators, auth
-    # action, auth, validators
+    validators, auth, action
 )
 
 
@@ -18,7 +17,7 @@ class DigitizationknowledgePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     
     plugins.implements(plugins.IAuthFunctions)
-    # plugins.implements(plugins.IActions)
+    plugins.implements(plugins.IActions)
     plugins.implements(plugins.IBlueprint)
     # plugins.implements(plugins.IClick)
     plugins.implements(plugins.ITemplateHelpers)
@@ -98,8 +97,8 @@ class DigitizationknowledgePlugin(plugins.SingletonPlugin):
 
     # IActions
 
-    # def get_actions(self):
-    #     return action.get_actions()
+    def get_actions(self):
+        return action.get_actions()
 
     # IBlueprint
 

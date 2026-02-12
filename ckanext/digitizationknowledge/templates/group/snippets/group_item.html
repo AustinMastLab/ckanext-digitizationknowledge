@@ -20,7 +20,14 @@ Example:
     <img src="{{ group.image_display_url or h.url_for_static('/base/images/placeholder-group.png') }}" alt="{{ group.name }}" class="media-image img-fluid">
   {% endblock %}
   {% block title %}
-    <h2 class="media-heading">{{ group.display_name }}</h2>
+    <h2 class="media-heading">
+      {{ group.display_name }}
+      {% if h.is_group_private(group) %}
+        <span class="badge bg-secondary" title="{{ _('Private group - visible only to members') }}">
+          <i class="fa fa-lock"></i> {{ _('Private') }}
+        </span>
+      {% endif %}
+    </h2>
   {% endblock %}
   {% block description %}
     {% if group.description %}
