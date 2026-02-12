@@ -78,17 +78,18 @@ def group_list(original_action, context, data_dict):
     - Regular users see public groups + private groups they're members of
     - Anonymous users see only public groups
     """
-    # Get all groups from the core action
-    all_groups = original_action(context, data_dict)
-    
     user = context.get('user')
     
-    # Sysadmins see everything
+    # Sysadmins see everything — no need to modify context
     if authz.is_sysadmin(user):
-        return all_groups
+        return original_action(context, data_dict)
     
-    # Check if all_fields was requested (returns dicts vs just names)
-    all_fields = data_dict.get('all_fields', False)
+    # For all other users: bypass auth in the core action to prevent
+    # group_show from throwing NotAuthorized on private groups when
+    # all_fields=True.  We filter private groups out ourselves below.
+    safe_context = context.copy()
+    safe_context['ignore_auth'] = True
+    all_groups = original_action(safe_context, data_dict)
     
     filtered_groups = []
     for group in all_groups:
