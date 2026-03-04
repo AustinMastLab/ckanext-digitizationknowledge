@@ -3,6 +3,11 @@ import ckan.model as model
 import ckan.authz as authz
 from sqlalchemy import and_, not_, exists
 from typing import Any
+import os
+import logging
+from functools import lru_cache
+
+log = logging.getLogger(__name__)
 
 
 def is_group_private(group):
@@ -156,10 +161,30 @@ def get_custom_featured_organizations(count: int = 1):
         return []
 
 
+@lru_cache(maxsize=1)
+def get_extra_head_html():
+    """
+    Read extra HTML to inject in <head> from assets/extra_head.html.
+    Content is cached after first read to avoid repeated file I/O.
+    Returns empty string if the file doesn't exist.
+    """
+    file_path = os.path.join(
+        os.path.dirname(__file__), 'assets', 'extra_head.html'
+    )
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        log.info('Loaded extra head HTML from %s', file_path)
+        return content
+    except FileNotFoundError:
+        log.debug('No extra head HTML file at %s', file_path)
+        return ''
+
 def get_helpers():
     return {
         "get_custom_featured_groups": get_custom_featured_groups,
         "get_custom_featured_organizations": get_custom_featured_organizations,
         "is_group_private": is_group_private,
         "user_can_view_group": user_can_view_group,
+        "get_extra_head_html": get_extra_head_html,
     }
