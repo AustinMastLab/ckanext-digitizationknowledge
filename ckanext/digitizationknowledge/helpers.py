@@ -6,6 +6,7 @@ from typing import Any
 import os
 import logging
 from functools import lru_cache
+from markupsafe import Markup
 
 log = logging.getLogger(__name__)
 
@@ -175,10 +176,10 @@ def get_extra_head_html():
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
         log.info('Loaded extra head HTML from %s', file_path)
-        return content
+        return Markup(content)
     except FileNotFoundError:
         log.debug('No extra head HTML file at %s', file_path)
-        return ''
+        return Markup('')
 
 def get_helpers():
     return {

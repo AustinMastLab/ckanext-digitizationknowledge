@@ -8,8 +8,5 @@
 
 {% block head_extras %}
 {{ super() }}
-{% set extra_head_html = h.get_extra_head_html() %}
-{% if extra_head_html %}
-{{ extra_head_html | safe }}
-{% endif %}
+{{ h.get_extra_head_html() }}
 {% endblock %}
