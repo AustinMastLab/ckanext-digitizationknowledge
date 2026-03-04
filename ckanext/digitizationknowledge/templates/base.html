@@ -1,12 +1,12 @@
 {% ckan_extends %}
 
 {% block styles %}
-  {{ super() }}
-  {% asset 'digitizationknowledge_theme/main-css' %}
-  <script src="//unpkg.com/alpinejs" defer></script>
+{{ super() }}
+{% asset 'digitizationknowledge_theme/main-css' %}
+<script src="//unpkg.com/alpinejs" defer></script>
 {% endblock %}
 
 {% block head_extras %}
 {{ super() }}
-{% include "extra_head.html" ignore missing %}
+{{ h.get_extra_head_html() }}
 {% endblock %}
