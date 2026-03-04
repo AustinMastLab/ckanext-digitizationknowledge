@@ -8,5 +8,5 @@
 
 {% block head_extras %}
 {{ super() }}
-{{ h.get_extra_head_html() | safe }}
+{% include "extra_head.html" ignore missing %}
 {% endblock %}
