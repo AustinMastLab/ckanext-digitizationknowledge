@@ -1,14 +1,20 @@
 {% ckan_extends %}
 
+{% ckan_extends %}
+
 {% block additional_user_agents -%}
-# Block all URLs with query parameters
+# Siteimprove crawler rules
+User-agent: SiteimproveBot
 Disallow: /digitization-resource?
 Disallow: /digitization-resource/?
-
-# Allow pagination
 Allow: /digitization-resource/?page=
 Allow: /digitization-resource?page=
+Allow: /digitization-resource/?task_clusters=digital+imaging&digitization_academy_course=Digital+Imaging+for+Biodiversity+Collections&discipline=general
 
-# Allow the one approved facet combination
+User-agent: SiteimproveBot-Crawler
+Disallow: /digitization-resource?
+Disallow: /digitization-resource/?
+Allow: /digitization-resource/?page=
+Allow: /digitization-resource?page=
 Allow: /digitization-resource/?task_clusters=digital+imaging&digitization_academy_course=Digital+Imaging+for+Biodiversity+Collections&discipline=general
 {%- endblock %}
