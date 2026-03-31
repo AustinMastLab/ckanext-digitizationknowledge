@@ -1,7 +1,5 @@
 {% ckan_extends %}
 
-{% ckan_extends %}
-
 {% block additional_user_agents -%}
 # Siteimprove crawler rules
 User-agent: SiteimproveBot
