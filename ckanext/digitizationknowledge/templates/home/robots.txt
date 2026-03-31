@@ -1,0 +1,14 @@
+{% ckan_extends %}
+
+{% block additional_user_agents -%}
+# Block all URLs with query parameters
+Disallow: /digitization-resource?
+Disallow: /digitization-resource/?
+
+# Allow pagination
+Allow: /digitization-resource/?page=
+Allow: /digitization-resource?page=
+
+# Allow the one approved facet combination
+Allow: /digitization-resource/?task_clusters=digital+imaging&digitization_academy_course=Digital+Imaging+for+Biodiversity+Collections&discipline=general
+{%- endblock %}
