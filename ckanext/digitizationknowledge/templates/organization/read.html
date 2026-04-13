@@ -1,5 +1,7 @@
 {% ckan_extends %}
 
+{% block subtitle %}{{ _('Organizations') }}{% if group_dict.display_name %} {{ g.template_title_delimiter }} {{ group_dict.display_name }}{% endif %}{% endblock %}
+
 {% block page_primary_action %}
 <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
     {{ _('Add Digitization Resource') }}

@@ -10,3 +10,11 @@
 {{ super() }}
 {{ h.get_extra_head_html() }}
 {% endblock %}
+
+<title>
+  {%- block title -%}
+    {{ g.site_title }}
+    {%- if self.subtitle()|trim %} {{ g.template_title_delimiter }} {% endif -%}
+    {%- block subtitle %}{% endblock -%}
+  {%- endblock -%}
+</title>
