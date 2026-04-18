@@ -1,7 +1,9 @@
 {% ckan_extends %}
 
+{% set current_endpoint = request.endpoint or '' %}
+
 {% block subtitle -%}
-{{ h.dataset_display_name(pkg) }}{% if pkg.organization %} {{ g.template_title_delimiter }} {{ pkg.organization.title or pkg.organization.name }}{% endif %}
+{{ h.dataset_display_name(pkg) }}{% if pkg.organization %} {{ g.template_title_delimiter }} {{ pkg.organization.title or pkg.organization.name }}{% endif %}{% if current_endpoint.endswith('.groups') %} {{ g.template_title_delimiter }} {{ _('Groups') }}{% endif %}
 {%- endblock %}
 
 {% block content_primary_nav %}
