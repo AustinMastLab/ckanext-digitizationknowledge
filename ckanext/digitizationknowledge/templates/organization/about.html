@@ -1,0 +1,3 @@
+{% ckan_extends %}
+
+{% block subtitle %}{{ _('Organizations') }}{% if group_dict.display_name %} {{ g.template_title_delimiter }} {{ group_dict.display_name }}{% endif %} {{ g.template_title_delimiter }} {{ _('About') }}{% endblock %}
