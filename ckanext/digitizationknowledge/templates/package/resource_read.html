@@ -1,4 +1,8 @@
 {% ckan_extends %}
 
+{% block subtitle -%}
+{{ h.dataset_display_name(pkg) }}{% if pkg.organization %} {{ g.template_title_delimiter }} {{ pkg.organization.title or pkg.organization.name }}{% endif %} {{ g.template_title_delimiter }} {{ _('Resource Version') }}
+{%- endblock %}
+
 {% block resource_license %}
-{% endblock%}
+{% endblock %}
