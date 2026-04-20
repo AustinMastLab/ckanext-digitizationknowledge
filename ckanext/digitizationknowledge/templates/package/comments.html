@@ -1,0 +1,5 @@
+{% ckan_extends %}
+
+{% block subtitle %}
+{{ h.dataset_display_name(pkg) }} {{ g.template_title_delimiter }} {{ h.dataset_display_name(pkg) }} {{ g.template_title_delimiter }} {{ _('Comments') }}
+{% endblock %}

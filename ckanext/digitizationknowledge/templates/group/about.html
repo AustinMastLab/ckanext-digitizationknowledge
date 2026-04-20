@@ -1,3 +1,5 @@
 {% ckan_extends %}
 
-{% block subtitle %}{{ _('Groups') }}{% if group_dict.display_name %} {{ g.template_title_delimiter }} {{ group_dict.display_name }}{% endif %} {{ g.template_title_delimiter }} {{ _('About') }}{% endblock %}
+{% block subtitle %}
+{{ _('Groups') }} {{ g.template_title_delimiter }} {{ group_dict.display_name or group_dict.title or group_dict.name }} {{ g.template_title_delimiter }} {{ _('About') }}
+{% endblock %}

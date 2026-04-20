@@ -1,6 +1,7 @@
 {% ckan_extends %}
 
-{% block subtitle %}{{ _('Versions') }} {{ g.template_title_delimiter }} {{ h.dataset_display_name(pkg) }}{% endblock %}
+{% block subtitle %}{{ _('Resources') }} {{ g.template_title_delimiter }} {{ h.dataset_display_name(pkg) }}{% endblock %}
+
 
 {% block primary_content_inner %}
 {% if pkg.resources %}
