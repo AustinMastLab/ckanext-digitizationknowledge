@@ -9,16 +9,18 @@
             {% block heading_private %}
             {% if package.private %}
             <span class="dataset-private badge bg-secondary">
-				<i class="fa fa-lock"></i>
-				{{ _('Private') }}
-			</span>
+                <i class="fa fa-lock"></i>
+                {{ _('Private') }}
+            </span>
             {% endif %}
             {% endblock %}
+
             {% block heading_title %}
             <a href="{{ h.url_for('%s.read' % package.type, id=package.name) }}" title="{{ title }}" target="_blank" rel="noopener noreferrer">
-                {{title|truncate(80)}}
+                {{ title|truncate(80) }}
             </a>
             {% endblock %}
+
             {% block heading_meta %}
             {% if package.get('state', '').startswith('draft') %}
             <span class="badge bg-info">{{ _('Draft') }}</span>
@@ -54,6 +56,7 @@
                          width="80" height="28" />
                 </a>
                 {% endif %}
+
                 {# Tags similar to homepage search #}
                 {% if package.tags %}
                 <div class="tags">
@@ -67,15 +70,14 @@
 
             {% if package.in_language or package.metadata_created or package.date_modified or package.date_published or package.date_created %}
             <ul class="dataset-resources__bottom">
-                {# Language field #}
                 {% if package.in_language %}
                 <li><strong>{{ _('Language') }}:</strong> {% for language in package.in_language %}{{ language }}{% endfor %}</li>
                 {% endif %}
-                {# Metadata dates #}
+
                 {% if package.metadata_created %}
                 <li><strong>{{ _('Metadata Creation Date') }}:</strong> {{ h.render_datetime(package.metadata_created, date_format='%Y-%m-%d') }}</li>
                 {% endif %}
-                {# Resource dates - prefer modified, then published, then created #}
+
                 {% if package.date_modified %}
                 <li><strong>{{ _('Resource Modified Date') }}:</strong> {{ h.render_datetime(package.date_modified, date_format='%Y-%m-%d') }}</li>
                 {% elif package.date_published %}
@@ -86,22 +88,33 @@
             </ul>
             {% endif %}
 
-            {# This are the badges for the individual files that will no longer be shown #}
-            {# Resources #}
-            {% set resource_formats = h.dict_list_reduce(package.resources, 'format') if package.resources and not hide_resources else [] %}
-            {% if resource_formats %}
-            {% block resources_outer %}
-            <ul class="dataset-resources list-unstyled d-inline-flex flex-wrap mb-0">
+            {# Resource format badges (never render an empty <ul>) #}
+            {% if package.resources and not hide_resources %}
+            {% set resource_formats = h.dict_list_reduce(package.resources, 'format') %}
+
+            {# Build the <li> HTML first #}
+                {% set items %}
                 {% block resources_inner %}
-                {% for resource in resource_formats %}
-                <li class="me-2 mb-1">
-                    <a href="{{ h.url_for(package.type ~ '.read', id=package.name) }}" class="badge" data-format="{{ resource.lower() }}">{{ resource }}</a>
-                </li>
-                {% endfor %}
-                {% endblock %}
-            </ul>
-            {% endblock %}
+                {% for f in resource_formats %}
+                {% if f and f|trim %}
+            <li class="me-2 mb-1">
+                <a href="{{ h.url_for(package.type ~ '.read', id=package.name) }}"
+                   class="badge"
+                   data-format="{{ (f|trim)|lower }}">{{ f|trim }}</a>
+            </li>
             {% endif %}
+            {% endfor %}
+            {% endblock %}
+            {% endset %}
+
+            {# Only render the <ul> if at least one <li> was produced #}
+                {% if items|trim %}
+                <ul class="dataset-resources list-unstyled d-inline-flex flex-wrap mb-0">
+                    {{ items|safe }}
+                </ul>
+                {% endif %}
+                {% endif %}
+
         </div>
         {% endblock %}
     </div>
