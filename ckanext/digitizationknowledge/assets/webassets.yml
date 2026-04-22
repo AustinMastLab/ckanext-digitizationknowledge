@@ -21,3 +21,7 @@ main-css:
   extra:
     preload:
       - base/main
+accessibility-js:
+  output: digitizationknowledge_theme/%(version)s_accessibility.js
+  contents:
+    - accessibility-fixes.js

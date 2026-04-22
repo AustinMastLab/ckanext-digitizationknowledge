@@ -6,6 +6,11 @@
 <script src="//unpkg.com/alpinejs" defer></script>
 {% endblock %}
 
+{% block scripts %}
+{{ super() }}
+{% asset 'digitizationknowledge_theme/accessibility-js' %}
+{% endblock %}
+
 {% block head_extras %}
 {{ super() }}
 {{ h.get_extra_head_html() }}
