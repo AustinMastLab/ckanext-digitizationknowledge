@@ -9,3 +9,28 @@
 {% endif %}
 </h1>
 {% endblock %}
+
+
+{% block search_facets %}
+{% if facets %}
+<p class="filter-list">
+    {% for field in facets.fields %}
+    {% set search_facets_items = facets.search.get(field)['items'] if facets.search and field in facets.search else [] %}
+    <span class="facet">{{ facets.titles.get(field) }}:</span>
+    {% for value in facets.fields[field] %}
+    {% set label = facets.translated_fields[(field, value)] if facets.translated_fields and (field, value) in facets.translated_fields else h.list_dict_filter(search_facets_items, 'name', 'display_name', value) %}
+    <span class="filtered pill">
+            {{ label }}
+            <a href="{{ facets.remove_field(field, value) }}"
+               class="remove"
+               title="{{ _('Remove filter: {label}').format(label=label) }}"
+               aria-label="{{ _('Remove filter: {label}').format(label=label) }}">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </a>
+          </span>
+    {% endfor %}
+    {% endfor %}
+</p>
+<a class="show-filters btn btn-default">{{ _('Filter Results') }}</a>
+{% endif %}
+{% endblock %}
