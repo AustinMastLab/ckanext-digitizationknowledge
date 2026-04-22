@@ -78,12 +78,18 @@ dataset_fields:
   label: Language
   preset: multiple_select
   display_property: schema:inLanguage
-  choices_helper: scheming_datastore_choices
   sorted_choices: true
-  datastore_choices_resource: in_language
-  datastore_choices_columns:
-    value: value
-    label: label
+  choices:
+  - value: eng
+    label: English
+  - value: spa
+    label: Spanish
+  - value: fra
+    label: French
+  - value: por
+    label: Portuguese
+  - value: deu
+    label: German
 
 - field_name: is_accessible_for_free
   label: Accessible for Free
@@ -144,12 +150,28 @@ dataset_fields:
   label: Category
   preset: select
   display_property: schema:category
-  choices_helper: scheming_datastore_choices
   sorted_choices: true
-  datastore_choices_resource: web_content_category
-  datastore_choices_columns:
-    value: value
-    label: label
+  choices:
+  - value: protocol
+    label: Protocol
+  - value: guide
+    label: Guide
+  - value: resource hub
+    label: Resource Hub
+  - value: standard
+    label: Standard
+  - value: discussion forum
+    label: Discussion Forum
+  - value: listserv
+    label: Listserv
+  - value: handbook
+    label: Handbook
+  - value: guidelines
+    label: Guidelines
+  - value: reference
+    label: Reference
+  - value: overview
+    label: Overview
 
 - field_name: tag_string
   label: Tags
@@ -173,76 +195,142 @@ dataset_fields:
   label: Digitization Academy Courses
   preset: multiple_select
   display_property: dk:digitization_academy_course
-  choices_helper: scheming_datastore_choices
   sorted_choices: true
-  datastore_choices_resource: digitization_academy_course
-  datastore_choices_columns:
-    value: value
-    label: label
+  choices:
+  - value: Introduction to Biodiversity Specimen Digitization
+    label: Introduction to Biodiversity Specimen Digitization
+  - value: Digital Imaging for Biodiversity Collections
+    label: Digital Imaging for Biodiversity Collections
+  - value: Public Participation in Digitization of Biodiversity Collections
+    label: Public Participation in Digitization of Biodiversity Collections
 
 - field_name: task_clusters
   label: Task Clusters
   help_text:
   preset: multiple_select
-  choices_helper: scheming_datastore_choices
   sorted_choices: true
-  datastore_choices_resource: task_clusters
-  datastore_choices_columns:
-    value: value
-    label: label
+  choices:
+  - value: pre-digitization curation
+    label: Pre-Digitization Curation
+  - value: digital data capture
+    label: Digital Data Capture
+  - value: georeferencing
+    label: Georeferencing
+  - value: project design and management
+    label: Project Design and Management
+  - value: general
+    label: General
+  - value: digital imaging
+    label: Digital Imaging
+  - value: mobilization and sharing
+    label: Mobilization and Sharing
 
 - field_name: task
   label: Task
   preset: multiple_select
-  choices_helper: scheming_datastore_choices
   sorted_choices: true
-  datastore_choices_resource: task
-  datastore_choices_columns:
-    value: value
-    label: label
+  choices:
+  - value: whole-drawer imaging
+    label: Whole-Drawer Imaging
+  - value: label imaging
+    label: Label Imaging
+  - value: label transcription
+    label: Label Transcription
+  - value: quality control
+    label: Quality Control
+  - value: specimen imaging
+    label: Specimen Imaging
+  - value: image processing
+    label: Image Processing
+  - value: image capture
+    label: Image Capture
+  - value: transcription
+    label: Transcription
 
 - field_name: preparations
   label: Specimen Preparations
   preset: multiple_select
   display_property: dwc:preparations
-  choices_helper: scheming_datastore_choices
   sorted_choices: true
-  datastore_choices_resource: preparations
-  datastore_choices_columns:
-    value: value
-    label: label
+  choices:
+  - value: herbarium sheets
+    label: Herbarium Sheets
+  - value: pinned dried insects
+    label: Pinned Dried Insects
+  - value: microscope slides
+    label: Microscope Slides
+  - value: flat sheets and packets
+    label: Flat Sheets and Packets
+  - value: pinned things in trays and drawers
+    label: Pinned Things in Trays and Drawers
+  - value: things in spirits in jars
+    label: Things in Spirits in Jars
+  - value: three-dimensional objects in trays and boxes
+    label: Three-Dimensional Objects in Trays and Boxes
+  - value: general
+    label: General
 
 - field_name: audience
   label: Audience
   preset: multiple_select
   display_property: schema:audience
-  choices_helper: scheming_datastore_choices
   sorted_choices: true
-  datastore_choices_resource: audience
-  datastore_choices_columns:
-    value: value
-    label: label
+  choices:
+  - value: general
+    label: General
+  - value: collections professionals
+    label: Collections Professionals
+  - value: educators
+    label: Educators
+  - value: researchers
+    label: Researchers
+  - value: participatory science practitioners
+    label: Participatory Science Practitioners
+  - value: participatory science coordinators
+    label: Participatory Science Coordinators
 
 - field_name: discipline
   label: Discipline
   preset: multiple_select
   display_property: ltc:discipline
-  choices_helper: scheming_datastore_choices
   sorted_choices: true
-  datastore_choices_resource: discipline
-  datastore_choices_columns:
-    value: value
-    label: label
+  choices:
+  - value: botany
+    label: Botany
+  - value: entomology
+    label: Entomology
+  - value: paleontology
+    label: Paleontology
+  - value: ornithology
+    label: Ornithology
+  - value: ichthyology
+    label: Ichthyology
+  - value: general
+    label: General
+  - value: zoology - arthropods
+    label: Zoology - Arthropods
+  - value: anthropology
+    label: Anthropology
+  - value: cultural heritage
+    label: Cultural Heritage
+  - value: geology
+    label: Geology
+  - value: mammalogy
+    label: Mammalogy
+  - value: zoology
+    label: Zoology
+  - value: ecology
+    label: Ecology
 
 - field_name: equipment
   label: Equipment
   preset: multiple_select
-  choices_helper: scheming_datastore_choices
   sorted_choices: true
-  datastore_choices_resource: equipment
-  datastore_choices_columns:
-    value: value
-    label: label
+  choices:
+  - value: 2d imaging
+    label: 2D Imaging
+  - value: 3d modeling
+    label: 3D modeling
 
 resource_fields:
 
