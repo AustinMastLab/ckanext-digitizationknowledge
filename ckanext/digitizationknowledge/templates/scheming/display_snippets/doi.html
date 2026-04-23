@@ -1,0 +1,11 @@
+{% set doi = data[field.field_name] %}
+{% if doi and doi|string|trim %}
+{% set doi_text = doi|string|trim %}
+{% if doi_text.startswith('http://') or doi_text.startswith('https://') %}
+<a href="{{ doi_text }}" target="_blank" rel="{{ field.display_property or '' }}">{{ doi_text }}</a>
+{% else %}
+<a href="https://doi.org/{{ doi_text }}" target="_blank" rel="{{ field.display_property or '' }}">https://doi.org/{{ doi_text }}</a>
+{% endif %}
+{% else %}
+<span></span>
+{% endif %}
