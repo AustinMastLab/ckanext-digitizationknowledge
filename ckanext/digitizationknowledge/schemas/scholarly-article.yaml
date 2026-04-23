@@ -32,7 +32,7 @@ dataset_fields:
   label: DOI
   form_placeholder: e.g., https://doi.org/10.3897/zookeys.209.3135
   display_property: dc:identifier:doi
-  display_snippet: link.html
+  display_snippet: doi.html
 
 - field_name: author
   label: First Author
@@ -338,7 +338,7 @@ resource_fields:
   label: DOI
   form_placeholder: https://doi.org/10.3897/zookeys.209.3135
   display_property: dc:identifier:doi
-  display_snippet: link.html
+  display_snippet: doi.html
 
 - field_name: date_created
   label: Date Created

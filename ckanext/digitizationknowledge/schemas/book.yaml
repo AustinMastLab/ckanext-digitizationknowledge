@@ -33,7 +33,7 @@ dataset_fields:
   label: DOI
   form_placeholder: e.g., https://doi.org/10.3897/zookeys.209.3135
   display_property: dc:identifier:doi
-  display_snippet: link.html
+  display_snippet: doi.html
 
 - field_name: isbn
   label: ISBN
@@ -344,7 +344,7 @@ resource_fields:
 - field_name: doi
   label: DOI
   display_property: dc:identifier:doi
-  display_snippet: link.html
+  display_snippet: doi.html
 
 - field_name: isbn
   label: ISBN
