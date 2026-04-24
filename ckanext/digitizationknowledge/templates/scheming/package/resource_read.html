@@ -22,8 +22,8 @@
 {#- Example of type-specific ordering -#}
 {#- Uncomment and adapt this block for your dataset types
 {% if dataset_type == 'your_dataset_type_name' %}
-    {% set custom_order = ['date_created', 'date_published', 'date_modified', 'version', 'license', 'format'] %}
-    {% set custom_order_end = ['id'] %}
+    {% set custom_order = ['id','date_created', 'date_published', 'date_modified', 'version', 'license'] %}
+    {% set custom_order_end = ['format'] %}
 {% endif %}
 -#}
 
