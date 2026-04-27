@@ -1,60 +1,60 @@
 {% extends "package/resource_read.html" %}
 
 {%- set exclude_fields = [
-  'name',
-  'description',
-  'url',
-  ] -%}
+'name',
+'description',
+'url',
+] -%}
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
 
 {#-
-  Define custom field orders. You can specify a default order and then
-  override it for specific dataset types.
+Define custom field orders. You can specify a default order and then
+override it for specific dataset types.
 
-  - `custom_order`: Fields to display at the beginning.
-  - `custom_order_end`: Fields to display at the end, inside the collapsible section.
+- `custom_order`: Fields to display at the beginning.
+- `custom_order_end`: Fields to display at the end, inside the collapsible section.
 -#}
 
 {#- Default order (if no type-specific order is set) -#}
-{%- set custom_order = ['date_created', 'date_published', 'date_modified', 'version', 'license'] -%}
-{%- set custom_order_end = ['id', 'package_id', 'state'] -%}
+{%- set custom_order = ['date_created', 'date_published', 'date_modified', 'version', 'license', 'id'] -%}
+{%- set custom_order_end = ['package_id', 'state'] -%}
 
 {#- Example of type-specific ordering -#}
 {#- Uncomment and adapt this block for your dataset types
 {% if dataset_type == 'your_dataset_type_name' %}
-    {% set custom_order = ['id','date_created', 'date_published', 'date_modified', 'version', 'license'] %}
-    {% set custom_order_end = ['format'] %}
+{% set custom_order = ['date_created', 'date_published', 'date_modified', 'version', 'license', 'format'] %}
+{% set custom_order_end = ['id'] %}
 {% endif %}
 -#}
 
 {#- Helper macro to render a single schema field's table row -#}
 {%- macro render_field(field, res, dataset_type) -%}
-  {#- Capture the rendered output of the display_field snippet into a variable.
-      This is the only robust way to handle all field types (e.g. dates, JSON). -#}
-  {%- set rendered_value -%}
-    {% snippet 'scheming/snippets/display_field.html',
-        field=field,
-        data=res,
-        entity_type='resource',
-        object_type=dataset_type
-    %}{%- endset -%}
+{#- Capture the rendered output of the display_field snippet into a variable.
+This is the only robust way to handle all field types (e.g. dates, JSON). -#}
+{%- set rendered_value -%}
+{% snippet 'scheming/snippets/display_field.html',
+field=field,
+data=res,
+entity_type='resource',
+object_type=dataset_type
+%}{%- endset -%}
 
-  {#- Only render the full table row if the captured output is not just whitespace. -#}
-  {%- if rendered_value and rendered_value|string|trim -%}
-    <tr class="scheming-field">
-      <th scope="row">{{ h.scheming_language_text(field.label) }}</th>
-      <td>{{ rendered_value|safe }}</td>
-    </tr>
-  {%- endif -%}
+{#- Only render the full table row if the captured output is not just whitespace. -#}
+{%- if rendered_value and rendered_value|string|trim -%}
+<tr class="scheming-field">
+    <th scope="row">{{ h.scheming_language_text(field.label) }}</th>
+    <td>{{ rendered_value|safe }}</td>
+</tr>
+{%- endif -%}
 {%- endmacro -%}
 
 {% block resource_additional_information_inner %}
-  {#- This block is wrapped in an Alpine.js component to handle the collapsible section -#}
-  <div class="module-content" x-data="{ showMore: false }" x-cloak>
+{#- This block is wrapped in an Alpine.js component to handle the collapsible section -#}
+<div class="module-content" x-data="{ showMore: false }" x-cloak>
     {% if res.datastore_active %}
-      {% block resource_data_dictionary %}
-        {{ super() }}
-      {% endblock %}
+    {% block resource_data_dictionary %}
+    {{ super() }}
+    {% endblock %}
     {% endif %}
 
     {%- block additional_info_heading -%}<h2>{{ _('Additional Information') }}</h2>{%- endblock -%}
@@ -63,98 +63,98 @@
     {#- 1. Get all schema fields into a dictionary for easy lookup -#}
     {%- set fields_by_name = {} -%}
     {%- for field in schema.resource_fields %}
-      {%- do fields_by_name.update({field.field_name: field}) -%}
+    {%- do fields_by_name.update({field.field_name: field}) -%}
     {%- endfor -%}
 
     {#- 2. Get all other formatted items into a reliable dictionary, keyed by field name -#}
     {%- set formatted_items_by_name = {} -%}
     {%- for label, value in h.format_resource_items(res.items()) -%}
-      {#- Convert the label (e.g. 'Package ID') into a field_name (e.g. 'package_id') -#}
-      {%- set field_name = label.lower().replace(' ', '_') -%}
-      {%- do formatted_items_by_name.update({field_name: (label, value)}) -%}
+    {#- Convert the label (e.g. 'Package ID') into a field_name (e.g. 'package_id') -#}
+    {%- set field_name = label.lower().replace(' ', '_') -%}
+    {%- do formatted_items_by_name.update({field_name: (label, value)}) -%}
     {%- endfor -%}
 
     <table class="table table-striped table-bordered table-condensed">
-      {%- block additional_info_table_head -%}
+        {%- block additional_info_table_head -%}
         <thead>
-          <tr>
+        <tr>
             <th scope="col">{{ _('Field') }}</th>
             <th scope="col">{{ _('Value') }}</th>
-          </tr>
+        </tr>
         </thead>
-      {%- endblock -%}
-      <tbody>
+        {%- endblock -%}
+        <tbody>
         {#- --- 1. Render high-priority fields from custom_order --- -#}
         {#- The render_field macro now correctly handles hiding empty schema fields.
-            A local check is still used for non-schema fields. -#}
+        A local check is still used for non-schema fields. -#}
         {%- for field_name in custom_order -%}
-          {%- if field_name in fields_by_name -%}
-            {{ render_field(fields_by_name[field_name], res, dataset_type) }}
-          {%- elif field_name in formatted_items_by_name -%}
-            {%- set label, value = formatted_items_by_name[field_name] -%}
-            {%- if value and value|string|trim -%}
-            <tr>
-              <th scope="row">{{ label | capitalize }}</th>
-              <td>{{ value }}</td>
-            </tr>
-            {%- endif -%}
-          {%- endif -%}
+        {%- if field_name in fields_by_name -%}
+        {{ render_field(fields_by_name[field_name], res, dataset_type) }}
+        {%- elif field_name in formatted_items_by_name -%}
+        {%- set label, value = formatted_items_by_name[field_name] -%}
+        {%- if value and value|string|trim -%}
+        <tr>
+            <th scope="row">{{ label | capitalize }}</th>
+            <td>{{ value }}</td>
+        </tr>
+        {%- endif -%}
+        {%- endif -%}
         {%- endfor -%}
 
         {#- --- 2. Render 'middle' schema fields by overriding the parent block --- -#}
         {%- block resource_fields scoped -%}
-          {%- for field in schema.resource_fields -%}
-            {%- if field.field_name not in exclude_fields and field.field_name not in custom_order and field.field_name not in custom_order_end -%}
-              {{ render_field(field, res, dataset_type) }}
-            {%- endif -%}
-          {%- endfor -%}
+        {%- for field in schema.resource_fields -%}
+        {%- if field.field_name not in exclude_fields and field.field_name not in custom_order and field.field_name not in custom_order_end -%}
+        {{ render_field(field, res, dataset_type) }}
+        {%- endif -%}
+        {%- endfor -%}
         {%- endblock -%}
 
         {#- --- 3. Override resource_more_items to hold all collapsible content --- -#}
         {%- block resource_more_items scoped -%}
-          <template x-if="showMore">
-                {#- Render fields from custom_order_end -#}
-                {%- for field_name in custom_order_end -%}
-                  {%- if field_name in fields_by_name -%}
-                    {{ render_field(fields_by_name[field_name], res, dataset_type) }}
-                  {%- elif field_name in formatted_items_by_name -%}
-                    {%- set label, value = formatted_items_by_name[field_name] -%}
-                    {%- if value and value|string|trim -%}
-                    <tr>
-                      <th scope="row">{{ label | capitalize }}</th>
-                      <td>{{ value }}</td>
-                    </tr>
-                    {%- endif -%}
-                  {%- endif -%}
-                {%- endfor -%}
+        <template x-if="showMore">
+            {#- Render fields from custom_order_end -#}
+            {%- for field_name in custom_order_end -%}
+            {%- if field_name in fields_by_name -%}
+            {{ render_field(fields_by_name[field_name], res, dataset_type) }}
+            {%- elif field_name in formatted_items_by_name -%}
+            {%- set label, value = formatted_items_by_name[field_name] -%}
+            {%- if value and value|string|trim -%}
+            <tr>
+                <th scope="row">{{ label | capitalize }}</th>
+                <td>{{ value }}</td>
+            </tr>
+            {%- endif -%}
+            {%- endif -%}
+            {%- endfor -%}
 
-                {#- Render any remaining formatted items that were not explicitly ordered -#}
-                {%- for field_name, (label, value) in formatted_items_by_name.items() -%}
-                    {%- if field_name not in custom_order and field_name not in custom_order_end and value and value|string|trim -%}
-                        <tr>
-                            <th scope="row">{{ label | capitalize }}</th>
-                            <td>{{ value }}</td>
-                        </tr>
-                    {%- endif -%}
-                {%- endfor -%}
-          </template>
+            {#- Render any remaining formatted items that were not explicitly ordered -#}
+            {%- for field_name, (label, value) in formatted_items_by_name.items() -%}
+            {%- if field_name not in custom_order and field_name not in custom_order_end and value and value|string|trim -%}
+            <tr>
+                <th scope="row">{{ label | capitalize }}</th>
+                <td>{{ value }}</td>
+            </tr>
+            {%- endif -%}
+            {%- endfor -%}
+        </template>
         {%- endblock -%}
-      </tbody>
+        </tbody>
     </table>
 
     {#- Toggle buttons are placed outside the table for a clean UI -#}
     <div class="text-center" style="padding-top: 10px;">
-      <button x-show="!showMore" @click="showMore = true" class="btn btn-default btn-sm">
-        <i class="fa fa-chevron-down"></i> {{ _('Show more') }}
-      </button>
-      <button x-show="showMore" @click="showMore = false" class="btn btn-default btn-sm" x-cloak>
-        <i class="fa fa-chevron-up"></i> {{ _('Show less') }}
-      </button>
+        <button x-show="!showMore" @click="showMore = true" class="btn btn-default btn-sm">
+            <i class="fa fa-chevron-down"></i> {{ _('Show more') }}
+        </button>
+        <button x-show="showMore" @click="showMore = false" class="btn btn-default btn-sm" x-cloak>
+            <i class="fa fa-chevron-up"></i> {{ _('Show less') }}
+        </button>
     </div>
-  </div>
+</div>
 
-  {#- Add styles for Alpine's x-cloak to prevent flash of unstyled content -#}
-  <style>
+{#- Add styles for Alpine's x-cloak to prevent flash of unstyled content -#}
+<style>
     [x-cloak] { display: none !important; }
-  </style>
+</style>
 {% endblock %}
