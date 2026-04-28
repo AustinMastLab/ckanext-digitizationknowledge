@@ -4,5 +4,43 @@
 {{ _('Resource Version') }}{% if package.title or package.name %} {{ g.template_title_delimiter }} {{ package.title or package.name }}{% endif %}{% if res.name or res.title %} {{ g.template_title_delimiter }} {{ res.title or res.name }}{% endif %}
 {% endblock %}
 
+{% block resource_actions %}
+{% set can_manage_resource = h.check_access('package_update', {'id': pkg.id}) %}
+{% set has_resource_url = res.url and h.is_url(res.url) %}
+
+{% if can_manage_resource or has_resource_url %}
+<ul class="d-flex flex-wrap gap-1 justify-content-end">
+    {% block resource_actions_inner %}
+    {% block action_manage %}
+    {% if can_manage_resource %}
+    <li>{% link_for _('Edit resource'), named_route=pkg.type ~ '_resource.edit', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='pencil' %}</li>
+    {% block action_manage_inner %}{% endblock %}
+    <li>{% link_for _('Views'), named_route=pkg.type ~ '_resource.views', id=pkg.name, resource_id=res.id, class_='btn btn-default', icon='chart-bar' %}</li>
+    {% endif %}
+    {% endblock action_manage %}
+
+    {% if has_resource_url %}
+    <li>
+        <div class="btn-group">
+            <a class="btn btn-primary resource-url-analytics" href="{{ res.url }}">
+                {% if res.resource_type in ('listing', 'service') %}
+                <i class="fa fa-eye"></i> {{ _('View') }}
+                {% elif res.resource_type == 'api' %}
+                <i class="fa fa-key"></i> {{ _('API Endpoint') }}
+                {% elif not res.has_views and not res.url_type == 'upload' %}
+                <i class="fa fa-external-link"></i> {{ _('Go to resource') }}
+                {% else %}
+                <i class="fa fa-arrow-circle-down"></i> {{ _('Download') }}
+                {% endif %}
+            </a>
+            {% block download_resource_button %}{% endblock download_resource_button %}
+        </div>
+    </li>
+    {% endif %}
+    {% endblock %}
+</ul>
+{% endif %}
+{% endblock %}
+
 {% block resource_license %}
 {% endblock %}
