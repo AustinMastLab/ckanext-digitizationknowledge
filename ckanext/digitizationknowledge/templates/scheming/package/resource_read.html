@@ -7,6 +7,20 @@
 ] -%}
 {%- set schema = h.scheming_get_dataset_schema(dataset_type) -%}
 
+{% block resource_actions %}
+  {% set rendered_resource_actions_inner %}
+    {% block resource_actions_inner %}
+      {{ super() }}
+    {% endblock %}
+  {% endset %}
+
+  {% if rendered_resource_actions_inner|string|trim %}
+    <ul class="d-flex flex-wrap gap-1 justify-content-end">
+      {{ rendered_resource_actions_inner|safe }}
+    </ul>
+  {% endif %}
+{% endblock %}
+
 {#-
 Define custom field orders. You can specify a default order and then
 override it for specific dataset types.
