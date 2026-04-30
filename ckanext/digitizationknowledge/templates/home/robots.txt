@@ -3,6 +3,8 @@
 {% block additional_user_agents -%}
 # Siteimprove crawler rules
 User-agent: SiteimproveBot
+Disallow: /api/1/util/snippet/
+Disallow: /api/util/snippet/
 Disallow: /digitization-resource?
 Disallow: /digitization-resource/?
 Allow: /digitization-resource/?page=
@@ -10,6 +12,8 @@ Allow: /digitization-resource?page=
 Allow: /digitization-resource/?task_clusters=digital+imaging&digitization_academy_course=Digital+Imaging+for+Biodiversity+Collections&discipline=general
 
 User-agent: SiteimproveBot-Crawler
+Disallow: /api/1/util/snippet/
+Disallow: /api/util/snippet/
 Disallow: /digitization-resource?
 Disallow: /digitization-resource/?
 Allow: /digitization-resource/?page=
