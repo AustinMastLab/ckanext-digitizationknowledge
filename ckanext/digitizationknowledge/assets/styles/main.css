@@ -229,7 +229,7 @@ a {
   text-decoration: none;
 }
 a:hover {
-  color: #389AAE;
+  color: #176A7A;
   text-decoration: underline;
 }
 
@@ -3197,7 +3197,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .btn-link:hover {
-  color: #389AAE;
+  color: #176A7A;
   text-decoration: underline;
 }
 .btn-link:focus {
@@ -3681,7 +3681,7 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .page-header .nav-tabs li a:hover, .nav-link:focus, .page-header .nav-tabs li a:focus {
-  color: #1D7F92;
+  color: #176A7A;
   text-decoration: none;
 }
 .nav-link.disabled, .page-header .nav-tabs li a.disabled {
@@ -4566,14 +4566,14 @@ textarea.form-control-lg {
 }
 .page-link:hover {
   z-index: 2;
-  color: #389AAE;
+  color: #176A7A;
   text-decoration: none;
   background-color: #e9ecef;
   border-color: #dee2e6;
 }
 .page-link:focus {
   z-index: 3;
-  color: #389AAE;
+  color: #176A7A;
   background-color: #e9ecef;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(56, 80, 174, 0.25);
@@ -12053,7 +12053,7 @@ td.diff_header {
 }
 
 .toolbar .breadcrumb .active {
-  color: #389AAE;
+  color: #176A7A;
 }
 
 .toolbar .home a {
@@ -12757,7 +12757,7 @@ td.diff_header {
   left: -9999px;
 }
 .account-masthead .account ul li a:hover {
-  color: #389AAE;
+  color: #176A7A;
   text-decoration: none;
 }
 .account-masthead .account ul li a.sub {
@@ -12775,7 +12775,7 @@ td.diff_header {
   font-weight: 600;
 }
 .account-masthead .account .notifications a:hover span {
-  color: #389AAE;
+  color: #176A7A;
 }
 .account-masthead .account .notifications.notifications-important a span.badge {
   color: #3850AE;
@@ -12864,7 +12864,7 @@ td.diff_header {
   opacity: 1;
 }
 .masthead .main-navbar ul li:hover a, .masthead .main-navbar ul li:focus a, .masthead .main-navbar ul li.active a {
-  color: #1D7F92;
+  color: #176A7A;
   transform: translateY(-5px);
   /*
   border-radius: $spacer * 0.3;
