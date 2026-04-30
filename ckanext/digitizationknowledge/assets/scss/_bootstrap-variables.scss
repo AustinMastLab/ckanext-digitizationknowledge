@@ -305,7 +305,7 @@ $link-color:                              $primary !default;
 $link-decoration:                         none !default;
 $link-shade-percentage:                   20% !default;
 //$link-hover-color:                        shift-color($link-color, $link-shade-percentage) !default;
-$link-hover-color: #389AAE;
+$link-hover-color: #176A7A;
 $link-hover-decoration:                   underline !default;
 
 $stretched-link-pseudo-element:           after !default;
@@ -943,8 +943,7 @@ $nav-link-padding-x:                1rem !default;
 $nav-link-font-size:                null !default;
 $nav-link-font-weight:              null !default;
 $nav-link-color:                    $link-color !default;
-//$nav-link-hover-color:              $link-hover-color !default;
-$nav-link-hover-color:              #1D7F92;
+$nav-link-hover-color:              $link-hover-color !default;
 $nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out !default;
 $nav-link-disabled-color:           $gray-600 !default;
 
