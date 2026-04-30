@@ -14,7 +14,7 @@
       </div>
       {% endblock %}
       {% block heading %}
-      <h1 class="heading">
+      <h2 class="heading h1">
         {{ group.display_name }}
         {% if h.is_group_private(group) %}
         <span class="badge bg-secondary" title="{{ _('Private group - visible only to members') }}">
@@ -24,7 +24,7 @@
         {% if group.state == 'deleted' %}
         [{{ _('Deleted') }}]
         {% endif %}
-      </h1>
+      </h2>
       {% endblock %}
       {% block description %}
       {% if group.description %}
