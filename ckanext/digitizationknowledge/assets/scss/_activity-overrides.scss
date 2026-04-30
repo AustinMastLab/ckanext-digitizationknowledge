@@ -1,0 +1,101 @@
+/* Accessibility: improve CKAN activity stream color contrast */
+
+.activity {
+  background-color: #FFFFFF !important;
+
+  .item {
+    color: #333333 !important;
+    background-color: #FFFFFF !important;
+
+    span,
+    p,
+    div {
+      color: #333333 !important;
+    }
+
+    a,
+    a:link,
+    a:visited {
+      color: #3850AE !important;
+      background-color: #FFFFFF !important;
+    }
+
+    a:hover,
+    a:focus {
+      color: #1D7F92 !important;
+      background-color: #FFFFFF !important;
+      text-decoration: underline;
+    }
+
+    .date {
+      color: #5F6368 !important;
+      background-color: #FFFFFF !important;
+    }
+
+    .dataset,
+    .group {
+      color: #333333 !important;
+      background-color: #FFFFFF !important;
+    }
+
+    .dataset a,
+    .group a {
+      color: #3850AE !important;
+      background-color: #FFFFFF !important;
+    }
+
+    .icon {
+      color: #5F6368 !important;
+    }
+
+    &.failure,
+    &.deleted-group,
+    &.deleted-package,
+    &.deleted-package_extra,
+    &.deleted-resource-view,
+    &.deleted-resource,
+    &.deleted-organization,
+    &.removed-tag,
+    &.deleted-related-item {
+      .icon {
+        color: #BE2D2C !important;
+      }
+    }
+
+    &.success,
+    &.new-group,
+    &.new-package,
+    &.new-package_extra,
+    &.new-resource-view,
+    &.new-resource,
+    &.new-user,
+    &.new-organization,
+    &.new-related-item,
+    &.follow-group {
+      .icon {
+        color: #35644A !important;
+      }
+    }
+
+    &.changed-group,
+    &.changed-package,
+    &.changed-package_extra,
+    &.changed-resource-view,
+    &.changed-resource,
+    &.changed-user,
+    &.changed-organization,
+    &.follow-dataset,
+    &.follow-user {
+      .icon {
+        color: #3850AE !important;
+      }
+    }
+  }
+}
+
+.popover {
+  .empty {
+    color: #5F6368 !important;
+    background-color: #FFFFFF !important;
+  }
+}
