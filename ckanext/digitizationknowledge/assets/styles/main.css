@@ -13464,4 +13464,61 @@ td.diff_header {
   align-items: center;
 }
 
+/* Accessibility: improve CKAN activity stream color contrast */
+.activity {
+  background-color: #FFFFFF !important;
+}
+.activity .item {
+  color: #333333 !important;
+  background-color: #FFFFFF !important;
+}
+.activity .item span,
+.activity .item p,
+.activity .item div {
+  color: #333333 !important;
+}
+.activity .item a,
+.activity .item a:link,
+.activity .item a:visited {
+  color: #3850AE !important;
+  background-color: #FFFFFF !important;
+}
+.activity .item a:hover,
+.activity .item a:focus {
+  color: #1D7F92 !important;
+  background-color: #FFFFFF !important;
+  text-decoration: underline;
+}
+.activity .item .date {
+  color: #5F6368 !important;
+  background-color: #FFFFFF !important;
+}
+.activity .item .dataset,
+.activity .item .group {
+  color: #333333 !important;
+  background-color: #FFFFFF !important;
+}
+.activity .item .dataset a,
+.activity .item .group a {
+  color: #3850AE !important;
+  background-color: #FFFFFF !important;
+}
+.activity .item .icon {
+  color: #5F6368 !important;
+}
+.activity .item.failure .icon, .activity .item.deleted-group .icon, .activity .item.deleted-package .icon, .activity .item.deleted-package_extra .icon, .activity .item.deleted-resource-view .icon, .activity .item.deleted-resource .icon, .activity .item.deleted-organization .icon, .activity .item.removed-tag .icon, .activity .item.deleted-related-item .icon {
+  color: #BE2D2C !important;
+}
+.activity .item.success .icon, .activity .item.new-group .icon, .activity .item.new-package .icon, .activity .item.new-package_extra .icon, .activity .item.new-resource-view .icon, .activity .item.new-resource .icon, .activity .item.new-user .icon, .activity .item.new-organization .icon, .activity .item.new-related-item .icon, .activity .item.follow-group .icon {
+  color: #35644A !important;
+}
+.activity .item.changed-group .icon, .activity .item.changed-package .icon, .activity .item.changed-package_extra .icon, .activity .item.changed-resource-view .icon, .activity .item.changed-resource .icon, .activity .item.changed-user .icon, .activity .item.changed-organization .icon, .activity .item.follow-dataset .icon, .activity .item.follow-user .icon {
+  color: #3850AE !important;
+}
+
+.popover .empty {
+  color: #5F6368 !important;
+  background-color: #FFFFFF !important;
+}
+
 /*# sourceMappingURL=main.css.map */
