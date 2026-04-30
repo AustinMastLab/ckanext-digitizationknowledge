@@ -12935,16 +12935,39 @@ td.diff_header {
   margin-bottom: 5px;
 }
 .site-footer .attribution p {
-  color: #CCDEE3;
+  color: #FFFFFF;
   font-size: 0.875rem;
+  background-color: rgba(0, 0, 0, 0.45);
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.31rem;
+  margin-bottom: 0;
+  text-align: right;
+}
+.site-footer .attribution strong {
+  color: #FFFFFF;
+  display: block;
+  margin-bottom: 0.25rem;
 }
 .site-footer .attribution .ckan-footer-logo {
-  display: block;
-  width: 68px;
-  height: 21px;
-  margin-top: 2px;
-  background: url("../../../base/images/ckan-logo-footer.png") no-repeat top left;
-  text-indent: -900em;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  margin-top: 0;
+  background: none;
+  border: 1px solid #FFFFFF;
+  border-radius: 0.19rem;
+  color: #FFFFFF;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 0.125rem 0.375rem;
+  text-indent: 0;
+  text-decoration: none;
+}
+.site-footer .attribution .ckan-footer-logo:hover,
+.site-footer .attribution .ckan-footer-logo:focus {
+  color: #11131E;
+  background-color: #FFFFFF;
+  text-decoration: none;
 }
 .site-footer .lang-select .form-group label {
   font-size: 0.875rem;
