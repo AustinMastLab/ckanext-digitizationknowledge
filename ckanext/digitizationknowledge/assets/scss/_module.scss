@@ -78,8 +78,8 @@
   .page-link,
   li > a,
   li > span {
-    min-width: 24px;
-    min-height: 24px;
+    min-width: 26px;
+    min-height: 26px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -87,8 +87,12 @@
 
   .disabled > a,
   .disabled > span {
-    min-width: 24px;
-    min-height: 24px;
+    width: 26px;
+    min-width: 26px;
+    height: 26px;
+    min-height: 26px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
