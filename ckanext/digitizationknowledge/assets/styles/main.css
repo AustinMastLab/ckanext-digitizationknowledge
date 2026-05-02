@@ -12939,25 +12939,27 @@ td.diff_header {
   margin-bottom: 5px;
 }
 .site-footer .attribution p {
+  display: inline-block;
   color: #FFFFFF;
   font-size: 0.875rem;
-  background-color: rgba(0, 0, 0, 0.45);
+  background-color: #11131E;
   padding: 0.5rem 0.625rem;
   border-radius: 0.31rem;
   margin-bottom: 0;
-  text-align: right;
+  text-align: center;
 }
 .site-footer .attribution strong {
-  color: #FFFFFF;
   display: block;
+  color: #FFFFFF;
+  background-color: #11131E;
   margin-bottom: 0.25rem;
 }
 .site-footer .attribution .ckan-footer-logo {
-  display: inline-block;
+  display: block;
   width: auto;
   height: auto;
   margin-top: 0;
-  background: none;
+  background: #11131E;
   border: 1px solid #FFFFFF;
   border-radius: 0.19rem;
   color: #FFFFFF;
@@ -12972,14 +12974,6 @@ td.diff_header {
   color: #11131E;
   background-color: #FFFFFF;
   text-decoration: none;
-}
-.site-footer .lang-select .form-group label {
-  font-size: 0.875rem;
-}
-.site-footer .lang-select .form-group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .table-selected td {
