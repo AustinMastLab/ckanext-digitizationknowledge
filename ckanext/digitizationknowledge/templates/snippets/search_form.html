@@ -1,13 +1,13 @@
 {% ckan_extends %}
 
 {% block search_title %}
-<h1>
+<h2 class="h1">
 {% if not error %}
   {% snippet 'snippets/search_result_text.html', query=query, count=count, type=type %}
 {% else %}
   Error
 {% endif %}
-</h1>
+</h2>
 {% endblock %}
 
 
