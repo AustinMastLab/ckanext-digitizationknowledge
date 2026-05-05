@@ -10147,6 +10147,19 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   font-weight: 700;
 }
 
+a:focus-visible,
+.btn:focus-visible,
+.dataset-resources__top a:focus-visible {
+  outline: 3px solid #000;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 5px #fff, 0 0 0 8px #005fcc;
+  border-radius: 4px;
+}
+
+.dataset-resources__top a:focus-visible img {
+  outline: none;
+}
+
 .btn-light, .btn-default {
   border: #dee2e6 solid 1px;
 }
