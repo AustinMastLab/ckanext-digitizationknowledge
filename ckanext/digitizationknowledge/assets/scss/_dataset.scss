@@ -113,6 +113,7 @@
     position: relative;
     padding: 10px 10px 10px 60px;
     margin-bottom: 0px;
+    background-color: $layoutBackgroundColor;
     @include border-radius(3px);
     &:hover {
         background-color: $layoutBackgroundColor;
