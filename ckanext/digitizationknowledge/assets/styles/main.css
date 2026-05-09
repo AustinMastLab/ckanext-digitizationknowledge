@@ -11586,6 +11586,7 @@ select[data-module=autocomplete] {
   position: relative;
   padding: 10px 10px 10px 60px;
   margin-bottom: 0px;
+  background-color: #F2F2F5;
   border-radius: 3px;
 }
 .resource-item:hover {
